@@ -299,3 +299,24 @@ textarea {
   margin-top: 15px;
   font-size: 16px;
 }
+.week-picker {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.day-box {
+  min-width: 100px;
+  flex-shrink: 0;
+}.day-box.selected {
+  background: #c89aa5;
+  color: white;
+  transform: scale(1.05);
+}#startTid {
+  font-size: 18px;
+  text-align: center;
+}#selectedTimeText {
+  text-align: center;
+  font-size: 14px;
+}
