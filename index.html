@@ -200,7 +200,7 @@
   <p class="subtitle">BOKA TID</p>
   <h2>Bokningsformulär</h2>
 
-  <form name="bokning" method="POST" data-netlify="true" onsubmit="showPopup()">
+  <form name="bokning" method="POST" data-netlify="true" onsubmit="return showPopup(event)">
     <input type="hidden" name="form-name" value="bokning">
 
     <input type="text" name="namn" placeholder="Fullständigt namn *" required>
@@ -246,8 +246,14 @@
 </div>
 
 <script>
-function showPopup() {
+function showPopup(e) {
+  e.preventDefault(); // stoppar direkt submit
+
   document.getElementById("popup").style.display = "flex";
+
+  setTimeout(() => {
+    e.target.submit(); // skickar efter 1 sekund
+  }, 1000);
 }
 function closePopup() {
   document.getElementById("popup").style.display = "none";
