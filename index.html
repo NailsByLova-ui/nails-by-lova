@@ -269,7 +269,6 @@ async function saveDays() {
   await fetch(API, {
     method: "POST",
     body: JSON.stringify(bookedDays)
-  });
 }
 
 function getMonthData() {
@@ -458,7 +457,6 @@ document.addEventListener("keydown", e => {
     alert("Den tiden går inte att boka 🤍");
     this.value = "";
   }
-});
 });
   document.getElementById("startTid").addEventListener("change", function () {
   const selectedDay = document.getElementById("selectedDay").value;
