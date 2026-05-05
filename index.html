@@ -77,16 +77,32 @@
   <div class="price-card">
     <h3>Nytt set</h3>
     <p class="price">250kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h beroende på design</li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
   </div>
 
   <div class="price-card popular">
+    <span class="badge">Populär</span>
     <h3>Påfyllning</h3>
     <p class="price">250 kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h</li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
   </div>
 
   <div class="price-card">
     <h3>Borttagning + Nytt set</h3>
     <p class="price">300kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>3-3,5h</li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
   </div>
 </section>
 
@@ -114,6 +130,7 @@
 <script>
 const API = "/.netlify/functions/blocked";
 let bookedDays = [];
+let isAdmin = false;
 
 async function loadBlockedDays() {
   const res = await fetch(API);
@@ -185,6 +202,11 @@ function renderWeek() {
     }
 
     box.onclick = () => {
+      if (isAdmin) {
+        box.classList.toggle("selected");
+        return;
+      }
+
       if (bookedDays.includes(d.key)) {
         document.getElementById("bookedMessage").style.display = "block";
         return;
@@ -220,6 +242,7 @@ async function saveAdminDays() {
 document.getElementById("adminTrigger").addEventListener("click", () => {
   const pw = prompt("Lösenord:");
   if (pw === "lova123") {
+    isAdmin = true;
     document.getElementById("adminSection").style.display = "block";
   }
 });
