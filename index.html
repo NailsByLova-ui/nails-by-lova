@@ -216,6 +216,11 @@
     </select>
 
     <div id="weekPicker" class="week-picker"></div>
+    <input type="time" name="startTid" id="startTid" required>
+
+<p id="endTimeText" style="color:#c89aa5; margin-top:10px;"></p>
+
+<input type="hidden" name="slutTid" id="slutTid">
 
     <p id="bookedMessage" style="display:none; color:#c89aa5; margin-top:10px;">
       Den här dagen är redan bokad 🤍
@@ -350,7 +355,7 @@ function renderWeek() {
 
   document.getElementById("bookedMessage").style.display = "none";
 
-  document.getElementById("selectedDay").value = `${d.label} (${d.display})`;
+ document.getElementById("selectedDay").value = d.key;
   document.getElementById("selectedTime").value = d.time;
 
   document.querySelectorAll(".day-box").forEach(el =>
@@ -422,6 +427,63 @@ document.addEventListener("keydown", e => {
       admin.scrollIntoView({ behavior: "smooth" });
       renderWeek();
     }
+  }
+});
+  document.getElementById("startTid").addEventListener("input", function () {
+  const time = this.value;
+  if (!time) return;
+
+  const [h, m] = time.split(":").map(Number);
+
+  const date = new Date();
+  date.setHours(h);
+  date.setMinutes(m);
+
+  // +3 timmar
+  date.setHours(date.getHours() + 3);
+
+  const endH = String(date.getHours()).padStart(2, "0");
+  const endM = String(date.getMinutes()).padStart(2, "0");
+
+  const endTime = `${endH}:${endM}`;
+
+  document.getElementById("endTimeText").innerText =
+    `Beräknad sluttid: ${endTime}`;
+
+  document.getElementById("slutTid").value = endTime;
+});
+  document.getElementById("startTid").addEventListener("change", function () {
+  const selectedDay = document.getElementById("selectedDay").value;
+
+  if (!selectedDay) {
+    alert("Välj dag först 🤍");
+    this.value = "";
+    return;
+  }
+
+  const date = new Date(selectedDay);
+  const day = date.getDay();
+
+  const time = this.value;
+  const [h, m] = time.split(":").map(Number);
+
+  const totalMinutes = h * 60 + m;
+
+  let min, max;
+
+  if (day === 0 || day === 6) {
+    // HELG
+    min = 13 * 60;
+    max = 19 * 60 + 30;
+  } else {
+    // VARDAG
+    min = 16 * 60;
+    max = 17 * 60 + 30;
+  }
+
+  if (totalMinutes < min || totalMinutes > max) {
+    alert("Den tiden går inte att boka 🤍");
+    this.value = "";
   }
 });
 </script>
