@@ -215,7 +215,11 @@
     </select>
 
     <div id="weekPicker" class="week-picker"></div>
-    <input type="time" name="startTid" id="startTid" required>
+    <p id="timeLabel" style="color:#c89aa5; text-align:center; margin-bottom:5px;">
+  Välj tid
+</p>
+
+<input type="time" name="startTid" id="startTid" required disabled>
     <p id="selectedTimeText" style="margin-top:10px; color:#c89aa5;"></p>
 
 <p id="endTimeText" style="color:#c89aa5; margin-top:10px;"></p>
@@ -465,6 +469,12 @@ document.getElementById("startTid").addEventListener("change", function () {
     "Beräknad sluttid: " + endTime;
 
   document.getElementById("slutTid").value = endTime;
+});
+  document.getElementById("startTid").addEventListener("input", function () {
+  if (this.value) {
+    document.getElementById("timeLabel").innerText =
+      "Vald tid: " + this.value + " ✨";
+  }
 });
 </script>
 
