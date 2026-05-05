@@ -113,18 +113,16 @@
 <section id="bokning" class="section">
   <h2>Bokningsformulär</h2>
 
-  <form>
-    <div id="weekPicker"></div>
+  <!-- FIXEN -->
+  <div id="weekPicker" class="week-picker"></div>
 
-    <p id="bookedMessage" style="display:none;">
-      Den här dagen är redan bokad 🤍
-    </p>
+  <p id="bookedMessage" style="display:none;">
+    Den här dagen är redan bokad 🤍
+  </p>
 
-    <input type="hidden" id="selectedDay">
-    <input type="hidden" id="selectedTime">
+  <input type="hidden" id="selectedDay">
+  <input type="hidden" id="selectedTime">
 
-    <button>Skicka</button>
-  </form>
 </section>
 
 <script>
@@ -133,8 +131,12 @@ let bookedDays = [];
 let isAdmin = false;
 
 async function loadBlockedDays() {
-  const res = await fetch(API);
-  bookedDays = await res.json();
+  try {
+    const res = await fetch(API);
+    bookedDays = await res.json();
+  } catch {
+    bookedDays = [];
+  }
 }
 
 async function saveBlockedDays() {
@@ -155,13 +157,7 @@ function getMonthData() {
   for (let i = 1; i <= monthDays; i++) {
     const date = new Date(year, month, i);
 
-    const compare = new Date(year, month, i);
-    compare.setHours(0,0,0,0);
-
-    const now = new Date();
-    now.setHours(0,0,0,0);
-
-    if (compare < now) continue;
+    if (date < new Date().setHours(0,0,0,0)) continue;
 
     const day = date.getDay();
 
