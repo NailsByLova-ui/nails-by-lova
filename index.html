@@ -429,28 +429,40 @@ document.addEventListener("keydown", e => {
     }
   }
 });
-  document.getElementById("startTid").addEventListener("input", function () {
-  const time = this.value;
-  if (!time) return;
+ document.getElementById("startTid").addEventListener("change", function () {
+  const selectedDay = document.getElementById("selectedDay").value;
 
+  if (!selectedDay) {
+    alert("Välj dag först 🤍");
+    this.value = "";
+    return;
+  }
+
+  const date = new Date(selectedDay);
+  const day = date.getDay();
+
+  const time = this.value;
   const [h, m] = time.split(":").map(Number);
 
-  const date = new Date();
-  date.setHours(h);
-  date.setMinutes(m);
+  const totalMinutes = h * 60 + m;
 
-  // +3 timmar
-  date.setHours(date.getHours() + 3);
+  let min, max;
 
-  const endH = String(date.getHours()).padStart(2, "0");
-  const endM = String(date.getMinutes()).padStart(2, "0");
+  if (day === 0 || day === 6) {
+    // HELG (Lör & Sön)
+    min = 13 * 60;       // 13:00
+    max = 19 * 60;       // 19:00
+  } else {
+    // VARDAG
+    min = 16 * 60;       // 16:00
+    max = 17 * 60 + 30;  // 17:30
+  }
 
-  const endTime = `${endH}:${endM}`;
-
-  document.getElementById("endTimeText").innerText =
-    `Beräknad sluttid: ${endTime}`;
-
-  document.getElementById("slutTid").value = endTime;
+  if (totalMinutes < min || totalMinutes > max) {
+    alert("Den tiden går inte att boka 🤍");
+    this.value = "";
+  }
+});
 });
   document.getElementById("startTid").addEventListener("change", function () {
   const selectedDay = document.getElementById("selectedDay").value;
