@@ -292,12 +292,13 @@ const day = date.getDay();
 
     let config = null;
 
-    if (day === 1) config = { label: "Måndag", time: "16:00–19:30" };
-    if (day === 2) config = { label: "Tisdag", time: "16:00–19:30" };
-    if (day === 3) config = { label: "Onsdag", time: "16:00–19:30" };
-    if (day === 4) config = { label: "Torsdag", time: "14:00–17:30" };
-    if (day === 6) config = { label: "Lördag", time: "14:00–17:30" };
-    if (day === 0) config = { label: "Söndag", time: "15:00–18:30" };
+    if (day === 1) config = { label: "Måndag", time: "" };
+    if (day === 2) config = { label: "Tisdag", time: "" };
+    if (day === 3) config = { label: "Onsdag", time: "" };
+    if (day === 4) config = { label: "Torsdag", time: "" };
+    if (day === 6) config = { label: "Lördag", time: "" };
+    if (day === 5) config = { label: "Fredag", time: "" };
+    if (day === 0) config = { label: "Söndag", time: "" };
 
     if (!config) continue;
 
