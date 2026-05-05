@@ -248,7 +248,6 @@
 <script>
 function showPopup(e) {
   e.preventDefault();
-
   document.getElementById("popup").style.display = "flex";
 
   setTimeout(() => {
@@ -279,6 +278,7 @@ async function saveDays() {
   });
 }
 
+// 📅 SKAPA DAGAR
 function getMonthData() {
   const today = new Date();
   const year = today.getFullYear();
@@ -300,24 +300,20 @@ function getMonthData() {
 
     const day = date.getDay();
 
-    let config = null;
-
-    if (day === 1) config = { label: "Måndag", time: "" };
-    if (day === 2) config = { label: "Tisdag", time: "" };
-    if (day === 3) config = { label: "Onsdag", time: "" };
-    if (day === 4) config = { label: "Torsdag", time: "" };
-    if (day === 5) config = { label: "Fredag", time: "" };
-    if (day === 6) config = { label: "Lördag", time: "" };
-    if (day === 0) config = { label: "Söndag", time: "" };
-
-    if (!config) continue;
+    let label = "";
+    if (day === 1) label = "Måndag";
+    if (day === 2) label = "Tisdag";
+    if (day === 3) label = "Onsdag";
+    if (day === 4) label = "Torsdag";
+    if (day === 5) label = "Fredag";
+    if (day === 6) label = "Lördag";
+    if (day === 0) label = "Söndag";
 
     const formatted = date.toISOString().split("T")[0];
 
     days.push({
       key: formatted,
-      label: config.label,
-      time: config.time,
+      label: label,
       display: `${i}/${month + 1}`
     });
   }
@@ -325,6 +321,7 @@ function getMonthData() {
   return days;
 }
 
+// 🎨 RENDERA DAGAR
 function renderWeek() {
   const container = document.getElementById("weekPicker");
   if (!container) return;
@@ -341,8 +338,7 @@ function renderWeek() {
 
     box.innerHTML = `
       <strong>${d.label}</strong><br>
-      ${d.display}<br>
-      <span>${d.time}</span>
+      ${d.display}
     `;
 
     if (bookedDays.includes(d.key)) {
@@ -363,7 +359,6 @@ function renderWeek() {
       document.getElementById("bookedMessage").style.display = "none";
 
       document.getElementById("selectedDay").value = d.key;
-      document.getElementById("selectedTime").value = d.time;
 
       document.querySelectorAll(".day-box").forEach(el =>
         el.classList.remove("selected")
@@ -376,6 +371,7 @@ function renderWeek() {
   });
 }
 
+// 🔒 ADMIN SPARA
 async function saveAdminDays() {
   const selected = Array.from(document.querySelectorAll(".day-box.selected"))
     .map(el => el.dataset.day);
@@ -393,17 +389,20 @@ async function saveAdminDays() {
   alert("Uppdaterat 🤍");
 }
 
+// 🔄 RESET
 async function nextWeek() {
   bookedDays = [];
   await saveDays();
   renderWeek();
 }
 
+// 🚀 START
 document.addEventListener("DOMContentLoaded", async () => {
   await loadDays();
   renderWeek();
 });
 
+// 🔐 ADMIN LOGIN
 document.addEventListener("keydown", e => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
     e.preventDefault();
@@ -430,16 +429,14 @@ document.getElementById("startTid").addEventListener("change", function () {
   const date = new Date(selectedDay);
   const day = date.getDay();
 
-  const time = this.value;
-  const [h, m] = time.split(":").map(Number);
-
+  const [h, m] = this.value.split(":").map(Number);
   const totalMinutes = h * 60 + m;
 
   let min, max;
 
   if (day === 0 || day === 6) {
     min = 13 * 60;
-    max = 19 * 60 + 30;
+    max = 19 * 60;
   } else {
     min = 16 * 60;
     max = 17 * 60 + 30;
@@ -451,19 +448,18 @@ document.getElementById("startTid").addEventListener("change", function () {
     return;
   }
 
-  // 🕒 AUTO SLUTTID +3h
-  const endDate = new Date();
-  endDate.setHours(h);
-  endDate.setMinutes(m);
-  endDate.setHours(endDate.getHours() + 3);
+  // 🕒 SLUTTID
+  const end = new Date();
+  end.setHours(h);
+  end.setMinutes(m);
+  end.setHours(end.getHours() + 3);
 
-  const endH = String(endDate.getHours()).padStart(2, "0");
-  const endM = String(endDate.getMinutes()).padStart(2, "0");
-
-  const endTime = `${endH}:${endM}`;
+  const endTime =
+    String(end.getHours()).padStart(2, "0") + ":" +
+    String(end.getMinutes()).padStart(2, "0");
 
   document.getElementById("endTimeText").innerText =
-    `Beräknad sluttid: ${endTime}`;
+    "Beräknad sluttid: " + endTime;
 
   document.getElementById("slutTid").value = endTime;
 });
