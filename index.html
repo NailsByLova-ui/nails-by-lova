@@ -26,8 +26,73 @@
   </div>
 </section>
 
+<section class="section reviews">
+  <p class="subtitle">RECENSIONER</p>
+  <h2>Vad mina kunder säger</h2>
+
+  <div class="reviews-grid">
+    <div class="review-bubble"><p>"Supernöjd!"</p><span>– Stella</span></div>
+    <div class="review-bubble"><p>"Jättenöjd!"</p><span>– Olivia</span></div>
+    <div class="review-bubble"><p>"Fantastiskt resultat!"</p><span>– Wilma</span></div>
+    <div class="review-bubble"><p>"Älskar dom!"</p><span>– Hilda</span></div>
+    <div class="review-bubble"><p>"Så nöjd!"</p><span>– Leona</span></div>
+    <div class="review-bubble"><p>"Kommer tillbaka!"</p><span>– Sanna</span></div>
+  </div>
+
+  <form name="recension" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="recension">
+    <input type="text" name="namn" placeholder="Ditt namn" required>
+    <textarea name="recension" placeholder="Skriv din recension här..." required></textarea>
+    <button type="submit" class="btn">Skicka recension</button>
+  </form>
+</section>
+
+<section class="section">
+  <p class="subtitle">TJÄNSTER</p>
+  <h2>Välj din tjänst</h2>
+
+  <div class="price-card">
+    <h3>Nytt set</h3>
+    <p class="price">250kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h</li>
+      <li>5+ veckor</li>
+    </ul>
+  </div>
+
+  <div class="price-card popular">
+    <h3>Påfyllning</h3>
+    <p class="price">250 kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h</li>
+      <li>5+ veckor</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <h3>Borttagning + Nytt set</h3>
+    <p class="price">300kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>3h</li>
+      <li>5+ veckor</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <p class="subtitle">SOCIALA MEDIER</p>
+  <h2>Följ Nails By Lova</h2>
+  <div class="card">
+    <a class="btn" href="https://instagram.com/nails.by.lova0" target="_blank">Instagram</a>
+    <a class="btn" href="https://www.tiktok.com/@nails.by.lova0" target="_blank">TikTok</a>
+  </div>
+</section>
+
 <section class="section admin-hidden" id="adminSection">
-  <button onclick="saveAdminDays()">Spara</button>
+  <button class="btn" onclick="saveAdminDays()">Spara</button>
 </section>
 
 <section id="bokning" class="section">
@@ -48,7 +113,6 @@
       <option>Borttagning + Nytt set</option>
     </select>
 
-    <!-- FIX -->
     <div id="weekPicker" class="week-picker"></div>
 
     <p id="bookedMessage" style="display:none; color:#c89aa5;">
@@ -89,30 +153,22 @@ function getMonthData() {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth();
-
   const days = [];
-  const monthDays = new Date(year, month + 1, 0).getDate();
+  const total = new Date(year, month + 1, 0).getDate();
 
-  for (let i = 1; i <= monthDays; i++) {
+  for (let i = 1; i <= total; i++) {
     const date = new Date(year, month, i);
+    if (date < new Date().setHours(0,0,0,0)) continue;
 
-    const compare = new Date(year, month, i);
-    compare.setHours(0,0,0,0);
-
-    const now = new Date();
-    now.setHours(0,0,0,0);
-
-    if (compare < now) continue;
-
-    const day = date.getDay();
-
+    const d = date.getDay();
     let config = null;
-    if (day === 1) config = { label:"Måndag", time:"16:00–19:30" };
-    if (day === 2) config = { label:"Tisdag", time:"16:00–19:30" };
-    if (day === 3) config = { label:"Onsdag", time:"16:00–19:30" };
-    if (day === 4) config = { label:"Torsdag", time:"14:00–17:30" };
-    if (day === 6) config = { label:"Lördag", time:"14:00–17:30" };
-    if (day === 0) config = { label:"Söndag", time:"15:00–18:30" };
+
+    if (d === 1) config = { label:"Måndag", time:"16:00–19:30" };
+    if (d === 2) config = { label:"Tisdag", time:"16:00–19:30" };
+    if (d === 3) config = { label:"Onsdag", time:"16:00–19:30" };
+    if (d === 4) config = { label:"Torsdag", time:"14:00–17:30" };
+    if (d === 6) config = { label:"Lördag", time:"14:00–17:30" };
+    if (d === 0) config = { label:"Söndag", time:"15:00–18:30" };
 
     if (!config) continue;
 
@@ -128,19 +184,16 @@ function getMonthData() {
 }
 
 function renderWeek() {
-  const container = document.getElementById("weekPicker");
-  container.innerHTML = "";
+  const c = document.getElementById("weekPicker");
+  c.innerHTML = "";
 
   getMonthData().forEach(d => {
     const box = document.createElement("div");
     box.className = "day-box";
     box.dataset.day = d.key;
-
     box.innerHTML = `<strong>${d.label}</strong><br>${d.display}`;
 
-    if (bookedDays.includes(d.key)) {
-      box.classList.add("booked");
-    }
+    if (bookedDays.includes(d.key)) box.classList.add("booked");
 
     box.onclick = () => {
       if (isAdmin) {
@@ -160,7 +213,7 @@ function renderWeek() {
       box.classList.add("selected");
     };
 
-    container.appendChild(box);
+    c.appendChild(box);
   });
 }
 
@@ -180,13 +233,13 @@ async function saveAdminDays() {
   renderWeek();
 }
 
-document.getElementById("adminTrigger").addEventListener("click", () => {
+document.getElementById("adminTrigger").onclick = () => {
   const pw = prompt("Lösenord:");
   if (pw === "lova123") {
     isAdmin = true;
     document.getElementById("adminSection").style.display = "block";
   }
-});
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
   await loadBlockedDays();
