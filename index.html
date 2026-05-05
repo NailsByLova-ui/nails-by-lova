@@ -247,14 +247,15 @@
 
 <script>
 function showPopup(e) {
-  e.preventDefault(); // stoppar direkt submit
+  e.preventDefault();
 
   document.getElementById("popup").style.display = "flex";
 
   setTimeout(() => {
-    e.target.submit(); // skickar efter 1 sekund
+    e.target.submit();
   }, 1000);
 }
+
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
@@ -289,16 +290,15 @@ function getMonthData() {
   for (let i = 1; i <= monthDays; i++) {
     const date = new Date(year, month, i);
 
-// 🔥 NY FIX
-const compare = new Date(year, month, i);
-compare.setHours(0,0,0,0);
+    const compare = new Date(year, month, i);
+    compare.setHours(0,0,0,0);
 
-const todayOnly = new Date();
-todayOnly.setHours(0,0,0,0);
+    const todayOnly = new Date();
+    todayOnly.setHours(0,0,0,0);
 
-if (compare < todayOnly) continue;
+    if (compare < todayOnly) continue;
 
-const day = date.getDay();
+    const day = date.getDay();
 
     let config = null;
 
@@ -306,8 +306,8 @@ const day = date.getDay();
     if (day === 2) config = { label: "Tisdag", time: "" };
     if (day === 3) config = { label: "Onsdag", time: "" };
     if (day === 4) config = { label: "Torsdag", time: "" };
-    if (day === 6) config = { label: "Lördag", time: "" };
     if (day === 5) config = { label: "Fredag", time: "" };
+    if (day === 6) config = { label: "Lördag", time: "" };
     if (day === 0) config = { label: "Söndag", time: "" };
 
     if (!config) continue;
@@ -344,44 +344,49 @@ function renderWeek() {
       ${d.display}<br>
       <span>${d.time}</span>
     `;
+
+    if (bookedDays.includes(d.key)) {
+      box.classList.add("booked");
+    }
+
     box.onclick = () => {
-  if (isAdmin) {
-    box.classList.toggle("selected");
-    return;
-  }
+      if (isAdmin) {
+        box.classList.toggle("selected");
+        return;
+      }
 
-  if (bookedDays.includes(d.key)) {
-    document.getElementById("bookedMessage").style.display = "block";
-    return;
-  }
+      if (bookedDays.includes(d.key)) {
+        document.getElementById("bookedMessage").style.display = "block";
+        return;
+      }
 
-  document.getElementById("bookedMessage").style.display = "none";
+      document.getElementById("bookedMessage").style.display = "none";
 
-  document.getElementById("selectedDay").value = d.key;
-  document.getElementById("selectedTime").value = d.time;
+      document.getElementById("selectedDay").value = d.key;
+      document.getElementById("selectedTime").value = d.time;
 
-  document.querySelectorAll(".day-box").forEach(el =>
-    el.classList.remove("selected")
-  );
+      document.querySelectorAll(".day-box").forEach(el =>
+        el.classList.remove("selected")
+      );
 
-  box.classList.add("selected");
-};
+      box.classList.add("selected");
+    };
+
+    container.appendChild(box);
+  });
+}
 
 async function saveAdminDays() {
   const selected = Array.from(document.querySelectorAll(".day-box.selected"))
     .map(el => el.dataset.day);
 
- selected.forEach(day => {
-  if (bookedDays.includes(day)) {
-    bookedDays = bookedDays.filter(d => d !== day);
-  } else {
-    bookedDays.push(day);
-  }
-}); // ← DENNA RAD SKA IN
-
-await saveDays();
-renderWeek();
-alert("Uppdaterat 🤍");
+  selected.forEach(day => {
+    if (bookedDays.includes(day)) {
+      bookedDays = bookedDays.filter(d => d !== day);
+    } else {
+      bookedDays.push(day);
+    }
+  });
 
   await saveDays();
   renderWeek();
@@ -409,22 +414,11 @@ document.addEventListener("keydown", e => {
       admin.scrollIntoView({ behavior: "smooth" });
       renderWeek();
     }
-  
- document.getElementById("startTid").addEventListener("change", function () {
-  const selectedDay = document.getElementById("selectedDay").value;
-
-  if (!selectedDay) {
-    alert("Välj dag först 🤍");
-    this.value = "";
-    return;
-  }
-
-  if (totalMinutes < min || totalMinutes > max) {
-    alert("Den tiden går inte att boka 🤍");
-    this.value = "";
   }
 });
-  document.getElementById("startTid").addEventListener("change", function () {
+
+// ⏰ TID + VALIDERING + SLUTTID
+document.getElementById("startTid").addEventListener("change", function () {
   const selectedDay = document.getElementById("selectedDay").value;
 
   if (!selectedDay) {
@@ -444,11 +438,9 @@ document.addEventListener("keydown", e => {
   let min, max;
 
   if (day === 0 || day === 6) {
-    // HELG
     min = 13 * 60;
     max = 19 * 60 + 30;
   } else {
-    // VARDAG
     min = 16 * 60;
     max = 17 * 60 + 30;
   }
@@ -456,7 +448,25 @@ document.addEventListener("keydown", e => {
   if (totalMinutes < min || totalMinutes > max) {
     alert("Den tiden går inte att boka 🤍");
     this.value = "";
+    return;
   }
+
+  // 🕒 AUTO SLUTTID +3h
+  const endDate = new Date();
+  endDate.setHours(h);
+  endDate.setMinutes(m);
+  endDate.setHours(endDate.getHours() + 3);
+
+  const endH = String(endDate.getHours()).padStart(2, "0");
+  const endM = String(endDate.getMinutes()).padStart(2, "0");
+
+  const endTime = `${endH}:${endM}`;
+
+  document.getElementById("endTimeText").innerText =
+    `Beräknad sluttid: ${endTime}`;
+
+  document.getElementById("slutTid").value = endTime;
+});
 </script>
 
 </body>
