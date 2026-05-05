@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nails By Lova</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="hero">
+  <p class="subtitle">PROFESSIONELL NAGELDESIGN</p>
+  <h1>Nails By Lova</h1>
+  <p class="description">Professionella naglar med 5+ veckors hållbarhet</p>
+  <a href="#bokning" class="btn">Boka tid</a>
+</section>
+
+<section class="section">
+  <p class="subtitle">OM MIG</p>
+  <h2>Om Nails By Lova</h2>
+  <div class="card">
+    Nails By Lova drivs av mig med stort fokus på noggrant arbete, detaljer och hållbara resultat.
+    Varje behandling anpassas efter kundens önskemål i en lugn, och trygg miljö.
+    Under behandling kommer det finnas tillgång till högtalare samt dator för ev film.
+    Målet för mig är en bra upplevelse där kunden går ut med en bra känsla i kroppen och såklart snygga naglar!
+  </div>
+</section>
+
+<section class="section reviews">
+  <p class="subtitle">RECENSIONER</p>
+  <h2>Vad mina kunder säger</h2>
+
+  <div class="reviews-grid">
+    <div class="review-bubble">
+      <p>"Jag är supernöjd med mitt nagelbesök! Naglarna blev så fina och håller verkligen jättebra. Ett väldigt trevligt bemötande, jag kommer absolut tillbaka💕"</p>
+      <span>– Stella</span>
+    </div>
+
+    <div class="review-bubble">
+      <p>"Jättenöjd! Super snygga naglar & trevligt bemötande. Väldigt tryggt och jag fick precis det jag ville ha trots att jag knappt visste själv. Allt var helt perfekt💓"</p>
+      <span>– Olivia</span>
+    </div>
+
+    <div class="review-bubble">
+      <p>"Jag är verkligen supernöjd med mina naglar!😍 Trevligt bemötande och fantastiskt resultat. Kommer defenitivt tillbaka!🙏🏻"</p>
+      <span>– Wilma</span>
+    </div>
+
+    <div class="review-bubble">
+      <p>"Älskar dom jättemycket!11 Blev super nöjd med besöket!!❤️"</p>
+      <span>– Hilda</span>
+    </div>
+
+    <div class="review-bubble">
+      <p>"Jätte nöjd, verkligen mysigt och du hjälpte mig och komprimissa över vilka naglar jag ville ha då jag inte kunde bestämma mig! Så nöjd!❤️"</p>
+      <span>– Leona</span>
+    </div>
+
+    <div class="review-bubble">
+      <p>"Är jätte nöjd med naglarna!! Super trevlig och gör precis dom på design idén man hade❤️ kommer defenitivt tillbaka!!"</p>
+      <span>– Sanna</span>
+    </div>
+  </div>
+
+  <form name="recension" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="recension">
+    <input type="text" name="namn" placeholder="Ditt namn" required>
+    <textarea name="recension" placeholder="Skriv din recension här..." required></textarea>
+    <button type="submit" class="btn">Skicka recension</button>
+  </form>
+</section>
+
+<section class="section">
+  <p class="subtitle">TJÄNSTER</p>
+  <h2>Välj din tjänst</h2>
+
+  <div class="price-card">
+    <h3>Nytt set</h3>
+    <p class="price">250kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h beroende på design</li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
+  </div>
+
+  <div class="price-card popular">
+    <span class="badge">Populär</span>
+    <h3>Påfyllning</h3>
+    <p class="price">250 kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>2-3h </li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
+  </div>
+
+  <div class="price-card">
+    <h3>Borttagning + Nytt set</h3>
+    <p class="price">300kr</p>
+    <ul>
+      <li>Valfri design</li>
+      <li>3-3,5h</li>
+      <li>5+ veckors hållbarhet</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <p class="subtitle">SOCIALA MEDIER</p>
+  <h2>Följ Nails By Lova</h2>
+  <div class="card">
+    Här delar jag mina senaste set, inspiration och uppdateringar.
+
+    <a class="btn" href="https://instagram.com/nails.by.lova0" target="_blank">
+      Instagram · @nails.by.lova0
+    </a>
+
+    <a class="btn" href="https://www.tiktok.com/@nails.by.lova0" target="_blank">
+      TikTok · @nails.by.lova0
+    </a>
+  </div>
+</section>
+
+<section class="section admin-hidden" id="adminSection">
+  <div class="info-card">
+    <h2>Admin – bokade datum</h2>
+    <p>Klicka på datum och tryck spara 🤍</p>
+
+    <div style="margin-top:30px;">
+      <button class="btn" onclick="saveAdminDays()">Spara</button>
+      <button class="btn" style="background:#e6e6e6;color:#333;" onclick="nextWeek()">Ny månad</button>
+    </div>
+  </div>
+</section>
+
+<section id="bokning" class="section">
+  <p class="subtitle">BOKA TID</p>
+  <h2>Bokningsformulär</h2>
+
+  <form name="bokning" method="POST" data-netlify="true" onsubmit="showPopup()">
+    <input type="hidden" name="form-name" value="bokning">
+
+    <input type="text" name="namn" placeholder="Fullständigt namn *" required>
+    <input type="email" name="email" placeholder="E-post *" required>
+    <input type="tel" name="telefon" placeholder="Telefonnummer">
+
+    <select name="Tjänst" required>
+      <option value="">Välj tjänst *</option>
+      <option>Nytt set</option>
+      <option>Påfyllning</option>
+      <option>Borttagning + Nytt set</option>
+    </select>
+
+    <div id="weekPicker" class="week-picker"></div>
+
+    <p id="bookedMessage" style="display:none; color:#c89aa5; margin-top:10px;">
+      Den här dagen är redan bokad 🤍
+    </p>
+
+    <input type="hidden" name="selectedDay" id="selectedDay" required>
+    <input type="hidden" name="selectedTime" id="selectedTime">
+
+    <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
+
+    <button type="submit" class="btn">Skicka bokningsförfrågan</button>
+  </form>
+</section>
+
+<div id="popup" class="popup" style="display:none;">
+  <div class="popup-content">
+    <p>
+      Tack för din bokning💕<br>
+      Du kommer att få ett bekräftelse mail där det står mer info!<br>
+      Mvh Nails By Lova🤍
+    </p>
+    <button type="button" onclick="closePopup()">Stäng</button>
+  </div>
+</div>
+
+<script>
+function showPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+const STORAGE_KEY = "bookedDays";
+const MONTH_KEY = "currentMonth";
+
+function checkNewMonth() {
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${now.getMonth()}`;
+  const savedMonth = localStorage.getItem(MONTH_KEY);
+
+  if (savedMonth !== currentMonth) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem(MONTH_KEY, currentMonth);
+  }
+}
+
+function getMonthData() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+
+  const days = [];
+  const monthDays = new Date(year, month + 1, 0).getDate();
+
+  for (let i = 1; i <= monthDays; i++) {
+    const date = new Date(year, month, i);
+    const day = date.getDay();
+
+    let config = null;
+
+    if (day === 1) config = { label: "Måndag", time: "16:00–19:30" };
+    if (day === 2) config = { label: "Tisdag", time: "16:00–19:30" };
+    if (day === 3) config = { label: "Onsdag", time: "16:00–19:30" };
+    if (day === 4) config = { label: "Torsdag", time: "14:00–17:30" };
+    if (day === 6) config = { label: "Lördag", time: "14:00–17:30" };
+    if (day === 0) config = { label: "Söndag", time: "15:00–18:30" };
+
+    if (!config) continue;
+
+    const formatted = date.toISOString().split("T")[0];
+
+    days.push({
+      key: formatted,
+      label: config.label,
+      time: config.time,
+      display: `${i}/${month + 1}`
+    });
+  }
+
+  return days;
+}
+
+function renderWeek() {
+  const container = document.getElementById("weekPicker");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const bookedDays = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  const month = getMonthData();
+  const isAdmin = document.getElementById("adminSection").style.display === "block";
+
+  month.forEach(d => {
+    const box = document.createElement("div");
+    box.className = "day-box";
+    box.dataset.day = d.key;
+
+    box.innerHTML = `
+      <strong>${d.label}</strong><br>
+      ${d.display}<br>
+      <span>${d.time}</span>
+    `;
+
+    if (bookedDays.includes(d.key)) {
+      box.classList.add("booked");
+      box.style.pointerEvents = "none"; // ENDA FIXEN
+    }
+
+    box.onclick = () => {
+      if (isAdmin) {
+        box.classList.toggle("selected");
+        return;
+      }
+
+      if (bookedDays.includes(d.key)) {
+        document.getElementById("bookedMessage").style.display = "block";
+        return;
+      }
+
+      document.getElementById("selectedDay").value = d.label;
+      document.getElementById("selectedTime").value = d.time;
+
+      document.querySelectorAll(".day-box").forEach(el =>
+        el.classList.remove("selected")
+      );
+      box.classList.add("selected");
+    };
+
+    container.appendChild(box);
+  });
+}
+
+function saveAdminDays() {
+  let booked = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+  const selected = Array.from(document.querySelectorAll(".day-box.selected"))
+    .map(el => el.dataset.day);
+
+  selected.forEach(day => {
+    if (booked.includes(day)) {
+      booked = booked.filter(d => d !== day);
+    } else {
+      booked.push(day);
+    }
+  });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(booked));
+
+  renderWeek();
+  alert("Uppdaterat 🤍");
+}
+
+function nextWeek() {
+  localStorage.removeItem(STORAGE_KEY);
+  renderWeek();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  checkNewMonth();
+  renderWeek();
+});
+
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
+    e.preventDefault();
+    const pw = prompt("Ange admin-lösenord:");
+    if (pw === "lova123") {
+      const admin = document.getElementById("adminSection");
+      admin.style.display = "block";
+      admin.scrollIntoView({ behavior: "smooth" });
+      renderWeek();
+    }
+  }
+});
+</script>
+
+</body>
+</html>
