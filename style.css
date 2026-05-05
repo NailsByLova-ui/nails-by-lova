@@ -320,3 +320,23 @@ textarea {
   text-align: center;
   font-size: 14px;
 }
+.time-wrapper {
+  position: relative;
+}
+
+#timeLabel {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+}
+
+#startTid {
+  width: 100%;
+  padding: 18px;
+  border-radius: 20px;
+  border: none;
+  background: #e9e4e6;
+}
