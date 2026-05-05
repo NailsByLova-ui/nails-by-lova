@@ -26,103 +26,42 @@
   </div>
 </section>
 
-<section class="section reviews">
-  <p class="subtitle">RECENSIONER</p>
-  <h2>Vad mina kunder säger</h2>
-
-  <div class="reviews-grid">
-    <div class="review-bubble">
-      <p>"Blev supernöjd med naglarna och mycket trevlig tjej, kommer verkligen komma tillbaka och rekommenderar till alla♥️♥️"</p>
-      <span>– Saga</span>
-    </div>
-
-    <div class="review-bubble">
-      <p>"Är supernöjd med besöket och naglarna! Super trevlig t och gör en bekväm behandling, kommer gå tillbaka!❤️"</p>
-      <span>– Astrid</span>
-    </div>
-
-    <div class="review-bubble">
-      <p>"Naglarna blev typ ännu snyggare än inspo🤭😍 andra gången jag går dit och är lika nöjd igen. Fett skön människa, kommer lätt tillbaka!😇"</p>
-      <span>– Sara</span>
-    </div>
-
-    <div class="review-bubble">
-      <p>"Så otroligt fina naglar och även så rolig att prata med kommer så tillbaka ❤️"</p>
-      <span>– Liv</span>
-    </div>
-
-    <div class="review-bubble">
-      <p>"Jätte nöjd, verkligen mysigt och du hjälpte mig och komprimissa över vilka naglar jag ville ha då jag inte kunde bestämma mig! Så nöjd!❤️"</p>
-      <span>– Leona</span>
-    </div>
-
-    <div class="review-bubble">
-      <p>"Är jätte nöjd med naglarna!! Super trevlig och gör precis dom på design idén man hade❤️ kommer defenitivt tillbaka!!"</p>
-      <span>– Sanna</span>
-    </div>
-  </div>
-
-  <form name="recension" method="POST" data-netlify="true">
-    <input type="hidden" name="form-name" value="recension">
-    <input type="text" name="namn" placeholder="Ditt namn" required>
-    <textarea name="recension" placeholder="Skriv din recension här..." required></textarea>
-    <button type="submit" class="btn">Skicka recension</button>
-  </form>
-</section>
-
-<section class="section">
-  <p class="subtitle">TJÄNSTER</p>
-  <h2>Välj din tjänst</h2>
-
-  <div class="price-card">
-    <h3>Nytt set</h3>
-    <p class="price">250kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>2-3h beroende på design</li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
-  </div>
-
-  <div class="price-card popular">
-    <span class="badge">Populär</span>
-    <h3>Påfyllning</h3>
-    <p class="price">250 kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>2-3h</li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
-  </div>
-
-  <div class="price-card">
-    <h3>Borttagning + Nytt set</h3>
-    <p class="price">300kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>3-3,5h</li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
-  </div>
-</section>
-
 <section class="section admin-hidden" id="adminSection">
   <button onclick="saveAdminDays()">Spara</button>
 </section>
 
 <section id="bokning" class="section">
+  <p class="subtitle">BOKA TID</p>
   <h2>Bokningsformulär</h2>
 
-  <!-- FIXEN -->
-  <div id="weekPicker" class="week-picker"></div>
+  <form name="bokning" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="bokning">
 
-  <p id="bookedMessage" style="display:none;">
-    Den här dagen är redan bokad 🤍
-  </p>
+    <input type="text" name="namn" placeholder="Fullständigt namn *" required>
+    <input type="email" name="email" placeholder="E-post *" required>
+    <input type="tel" name="telefon" placeholder="Telefonnummer">
 
-  <input type="hidden" id="selectedDay">
-  <input type="hidden" id="selectedTime">
+    <select name="Tjänst" required>
+      <option value="">Välj tjänst *</option>
+      <option>Nytt set</option>
+      <option>Påfyllning</option>
+      <option>Borttagning + Nytt set</option>
+    </select>
 
+    <!-- FIX -->
+    <div id="weekPicker" class="week-picker"></div>
+
+    <p id="bookedMessage" style="display:none; color:#c89aa5;">
+      Den här dagen är redan bokad 🤍
+    </p>
+
+    <input type="hidden" name="selectedDay" id="selectedDay" required>
+    <input type="hidden" name="selectedTime" id="selectedTime">
+
+    <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
+
+    <button type="submit" class="btn">Skicka bokningsförfrågan</button>
+  </form>
 </section>
 
 <script>
@@ -157,7 +96,13 @@ function getMonthData() {
   for (let i = 1; i <= monthDays; i++) {
     const date = new Date(year, month, i);
 
-    if (date < new Date().setHours(0,0,0,0)) continue;
+    const compare = new Date(year, month, i);
+    compare.setHours(0,0,0,0);
+
+    const now = new Date();
+    now.setHours(0,0,0,0);
+
+    if (compare < now) continue;
 
     const day = date.getDay();
 
