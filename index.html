@@ -216,6 +216,7 @@
 
     <div id="weekPicker" class="week-picker"></div>
     <input type="time" name="startTid" id="startTid" required>
+    <p id="selectedTimeText" style="margin-top:10px; color:#c89aa5;"></p>
 
 <p id="endTimeText" style="color:#c89aa5; margin-top:10px;"></p>
 
@@ -359,6 +360,8 @@ function renderWeek() {
       document.getElementById("bookedMessage").style.display = "none";
 
       document.getElementById("selectedDay").value = d.key;
+
+      document.getElementById("startTid").disabled = false;
 
       document.querySelectorAll(".day-box").forEach(el =>
         el.classList.remove("selected")
