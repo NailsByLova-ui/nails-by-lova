@@ -275,6 +275,7 @@ async function saveDays() {
   await fetch(API, {
     method: "POST",
     body: JSON.stringify(bookedDays)
+  });
 }
 
 function getMonthData() {
