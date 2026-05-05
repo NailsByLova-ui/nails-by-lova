@@ -8,7 +8,6 @@
 </head>
 <body>
 
-</section>
 <section class="hero">
   <p class="subtitle">PROFESSIONELL NAGELDESIGN</p>
   <h1>Nails By Lova</h1>
@@ -339,10 +338,7 @@ function renderWeek() {
       ${d.display}<br>
       <span>${d.time}</span>
     `;
-
-    if (bookedDays.includes(d.key)) {
-      box.classList.add("booked");
-     box.onclick = () => {
+    box.onclick = () => {
   if (isAdmin) {
     box.classList.toggle("selected");
     return;
@@ -355,15 +351,15 @@ function renderWeek() {
 
   document.getElementById("bookedMessage").style.display = "none";
 
- document.getElementById("selectedDay").value = d.key;
+  document.getElementById("selectedDay").value = d.key;
   document.getElementById("selectedTime").value = d.time;
 
   document.querySelectorAll(".day-box").forEach(el =>
     el.classList.remove("selected")
   );
+
   box.classList.add("selected");
 };
-    }
 
     box.onclick = () => {
       if (isAdmin) {
