@@ -215,7 +215,17 @@ function getMonthData() {
 
   for (let i = 1; i <= monthDays; i++) {
     const date = new Date(year, month, i);
-    const day = date.getDay();
+
+// 🔥 NY FIX
+const compare = new Date(year, month, i);
+compare.setHours(0,0,0,0);
+
+const todayOnly = new Date();
+todayOnly.setHours(0,0,0,0);
+
+if (compare < todayOnly) continue;
+
+const day = date.getDay();
 
     let config = null;
 
@@ -263,7 +273,27 @@ function renderWeek() {
 
     if (bookedDays.includes(d.key)) {
       box.classList.add("booked");
-      box.style.pointerEvents = "none";
+     box.onclick = () => {
+  if (isAdmin) {
+    box.classList.toggle("selected");
+    return;
+  }
+
+  if (bookedDays.includes(d.key)) {
+    document.getElementById("bookedMessage").style.display = "block";
+    return;
+  }
+
+  document.getElementById("bookedMessage").style.display = "none";
+
+  document.getElementById("selectedDay").value = `${d.label} (${d.display})`;
+  document.getElementById("selectedTime").value = d.time;
+
+  document.querySelectorAll(".day-box").forEach(el =>
+    el.classList.remove("selected")
+  );
+  box.classList.add("selected");
+};
     }
 
     box.onclick = () => {
