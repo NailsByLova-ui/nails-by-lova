@@ -10,7 +10,7 @@
 
 <section class="hero">
   <p class="subtitle">PROFESSIONELL NAGELDESIGN</p>
-  <h1>Nails By Lova</h1>
+  <h1 id="adminTrigger">Nails By Lova</h1>
   <p class="description">Professionella naglar med 5+ veckors hållbarhet</p>
   <a href="#bokning" class="btn">Boka tid</a>
 </section>
@@ -32,23 +32,23 @@
 
   <div class="reviews-grid">
     <div class="review-bubble">
-      <p>"Jag är supernöjd med mitt nagelbesök! Naglarna blev så fina och håller verkligen jättebra. Ett väldigt trevligt bemötande, jag kommer absolut tillbaka💕"</p>
-      <span>– Stella</span>
+      <p>"Blev supernöjd med naglarna och mycket trevlig tjej, kommer verkligen komma tillbaka och rekommenderar till alla♥️♥️"</p>
+      <span>– Saga</span>
     </div>
 
     <div class="review-bubble">
-      <p>"Jättenöjd! Super snygga naglar & trevligt bemötande. Väldigt tryggt och jag fick precis det jag ville ha trots att jag knappt visste själv. Allt var helt perfekt💓"</p>
-      <span>– Olivia</span>
+      <p>"Är supernöjd med besöket och naglarna! Super trevlig t och gör en bekväm behandling, kommer gå tillbaka!❤️"</p>
+      <span>– Astrid</span>
     </div>
 
     <div class="review-bubble">
-      <p>"Jag är verkligen supernöjd med mina naglar!😍 Trevligt bemötande och fantastiskt resultat. Kommer defenitivt tillbaka!🙏🏻"</p>
-      <span>– Wilma</span>
+      <p>"Naglarna blev typ ännu snyggare än inspo🤭😍 andra gången jag går dit och är lika nöjd igen. Fett skön människa, kommer lätt tillbaka!😇"</p>
+      <span>– Sara</span>
     </div>
 
     <div class="review-bubble">
-      <p>"Älskar dom jättemycket!11 Blev super nöjd med besöket!!❤️"</p>
-      <span>– Hilda</span>
+      <p>"Så otroligt fina naglar och även så rolig att prata med kommer så tillbaka ❤️"</p>
+      <span>– Liv</span>
     </div>
 
     <div class="review-bubble">
@@ -77,127 +77,54 @@
   <div class="price-card">
     <h3>Nytt set</h3>
     <p class="price">250kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>2-3h beroende på design</li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
   </div>
 
   <div class="price-card popular">
-    <span class="badge">Populär</span>
     <h3>Påfyllning</h3>
     <p class="price">250 kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>2-3h </li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
   </div>
 
   <div class="price-card">
     <h3>Borttagning + Nytt set</h3>
     <p class="price">300kr</p>
-    <ul>
-      <li>Valfri design</li>
-      <li>3-3,5h</li>
-      <li>5+ veckors hållbarhet</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
-  <p class="subtitle">SOCIALA MEDIER</p>
-  <h2>Följ Nails By Lova</h2>
-  <div class="card">
-    Här delar jag mina senaste set, inspiration och uppdateringar.
-
-    <a class="btn" href="https://instagram.com/nails.by.lova0" target="_blank">
-      Instagram · @nails.by.lova0
-    </a>
-
-    <a class="btn" href="https://www.tiktok.com/@nails.by.lova0" target="_blank">
-      TikTok · @nails.by.lova0
-    </a>
   </div>
 </section>
 
 <section class="section admin-hidden" id="adminSection">
-  <div class="info-card">
-    <h2>Admin – bokade datum</h2>
-    <p>Klicka på datum och tryck spara 🤍</p>
-
-    <div style="margin-top:30px;">
-      <button class="btn" onclick="saveAdminDays()">Spara</button>
-      <button class="btn" style="background:#e6e6e6;color:#333;" onclick="nextWeek()">Ny månad</button>
-    </div>
-  </div>
+  <button onclick="saveAdminDays()">Spara</button>
 </section>
 
 <section id="bokning" class="section">
-  <p class="subtitle">BOKA TID</p>
   <h2>Bokningsformulär</h2>
 
-  <form name="bokning" method="POST" data-netlify="true" onsubmit="showPopup()">
-    <input type="hidden" name="form-name" value="bokning">
+  <form>
+    <div id="weekPicker"></div>
 
-    <input type="text" name="namn" placeholder="Fullständigt namn *" required>
-    <input type="email" name="email" placeholder="E-post *" required>
-    <input type="tel" name="telefon" placeholder="Telefonnummer">
-
-    <select name="Tjänst" required>
-      <option value="">Välj tjänst *</option>
-      <option>Nytt set</option>
-      <option>Påfyllning</option>
-      <option>Borttagning + Nytt set</option>
-    </select>
-
-    <div id="weekPicker" class="week-picker"></div>
-
-    <p id="bookedMessage" style="display:none; color:#c89aa5; margin-top:10px;">
+    <p id="bookedMessage" style="display:none;">
       Den här dagen är redan bokad 🤍
     </p>
 
-    <input type="hidden" name="selectedDay" id="selectedDay" required>
-    <input type="hidden" name="selectedTime" id="selectedTime">
+    <input type="hidden" id="selectedDay">
+    <input type="hidden" id="selectedTime">
 
-    <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
-
-    <button type="submit" class="btn">Skicka bokningsförfrågan</button>
+    <button>Skicka</button>
   </form>
 </section>
 
-<div id="popup" class="popup" style="display:none;">
-  <div class="popup-content">
-    <p>
-      Tack för din bokning💕<br>
-      Du kommer att få ett bekräftelse mail där det står mer info!<br>
-      Mvh Nails By Lova🤍
-    </p>
-    <button type="button" onclick="closePopup()">Stäng</button>
-  </div>
-</div>
-
 <script>
-function showPopup() {
-  document.getElementById("popup").style.display = "flex";
+const API = "/.netlify/functions/blocked";
+let bookedDays = [];
+
+async function loadBlockedDays() {
+  const res = await fetch(API);
+  bookedDays = await res.json();
 }
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
 
-const STORAGE_KEY = "bookedDays";
-const MONTH_KEY = "currentMonth";
-
-function checkNewMonth() {
-  const now = new Date();
-  const currentMonth = `${now.getFullYear()}-${now.getMonth()}`;
-  const savedMonth = localStorage.getItem(MONTH_KEY);
-
-  if (savedMonth !== currentMonth) {
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.setItem(MONTH_KEY, currentMonth);
-  }
+async function saveBlockedDays() {
+  await fetch(API, {
+    method: "POST",
+    body: JSON.stringify(bookedDays)
+  });
 }
 
 function getMonthData() {
@@ -210,26 +137,32 @@ function getMonthData() {
 
   for (let i = 1; i <= monthDays; i++) {
     const date = new Date(year, month, i);
+
+    const compare = new Date(year, month, i);
+    compare.setHours(0,0,0,0);
+
+    const now = new Date();
+    now.setHours(0,0,0,0);
+
+    if (compare < now) continue;
+
     const day = date.getDay();
 
     let config = null;
-
-    if (day === 1) config = { label: "Måndag", time: "16:00–19:30" };
-    if (day === 2) config = { label: "Tisdag", time: "16:00–19:30" };
-    if (day === 3) config = { label: "Onsdag", time: "16:00–19:30" };
-    if (day === 4) config = { label: "Torsdag", time: "14:00–17:30" };
-    if (day === 6) config = { label: "Lördag", time: "14:00–17:30" };
-    if (day === 0) config = { label: "Söndag", time: "15:00–18:30" };
+    if (day === 1) config = { label:"Måndag", time:"16:00–19:30" };
+    if (day === 2) config = { label:"Tisdag", time:"16:00–19:30" };
+    if (day === 3) config = { label:"Onsdag", time:"16:00–19:30" };
+    if (day === 4) config = { label:"Torsdag", time:"14:00–17:30" };
+    if (day === 6) config = { label:"Lördag", time:"14:00–17:30" };
+    if (day === 0) config = { label:"Söndag", time:"15:00–18:30" };
 
     if (!config) continue;
 
-    const formatted = date.toISOString().split("T")[0];
-
     days.push({
-      key: formatted,
+      key: date.toISOString().split("T")[0],
       label: config.label,
       time: config.time,
-      display: `${i}/${month + 1}`
+      display: `${i}/${month+1}`
     });
   }
 
@@ -238,47 +171,29 @@ function getMonthData() {
 
 function renderWeek() {
   const container = document.getElementById("weekPicker");
-  if (!container) return;
-
   container.innerHTML = "";
 
-  const bookedDays = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const month = getMonthData();
-  const isAdmin = document.getElementById("adminSection").style.display === "block";
-
-  month.forEach(d => {
+  getMonthData().forEach(d => {
     const box = document.createElement("div");
     box.className = "day-box";
     box.dataset.day = d.key;
 
-    box.innerHTML = `
-      <strong>${d.label}</strong><br>
-      ${d.display}<br>
-      <span>${d.time}</span>
-    `;
+    box.innerHTML = `<strong>${d.label}</strong><br>${d.display}`;
 
     if (bookedDays.includes(d.key)) {
       box.classList.add("booked");
-      box.style.pointerEvents = "none"; // ENDA FIXEN
     }
 
     box.onclick = () => {
-      if (isAdmin) {
-        box.classList.toggle("selected");
-        return;
-      }
-
       if (bookedDays.includes(d.key)) {
         document.getElementById("bookedMessage").style.display = "block";
         return;
       }
 
-      document.getElementById("selectedDay").value = d.label;
+      document.getElementById("selectedDay").value = `${d.label} (${d.display})`;
       document.getElementById("selectedTime").value = d.time;
 
-      document.querySelectorAll(".day-box").forEach(el =>
-        el.classList.remove("selected")
-      );
+      document.querySelectorAll(".day-box").forEach(el => el.classList.remove("selected"));
       box.classList.add("selected");
     };
 
@@ -286,47 +201,32 @@ function renderWeek() {
   });
 }
 
-function saveAdminDays() {
-  let booked = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
+async function saveAdminDays() {
   const selected = Array.from(document.querySelectorAll(".day-box.selected"))
     .map(el => el.dataset.day);
 
   selected.forEach(day => {
-    if (booked.includes(day)) {
-      booked = booked.filter(d => d !== day);
+    if (bookedDays.includes(day)) {
+      bookedDays = bookedDays.filter(d => d !== day);
     } else {
-      booked.push(day);
+      bookedDays.push(day);
     }
   });
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(booked));
-
-  renderWeek();
-  alert("Uppdaterat 🤍");
-}
-
-function nextWeek() {
-  localStorage.removeItem(STORAGE_KEY);
+  await saveBlockedDays();
   renderWeek();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  checkNewMonth();
-  renderWeek();
+document.getElementById("adminTrigger").addEventListener("click", () => {
+  const pw = prompt("Lösenord:");
+  if (pw === "lova123") {
+    document.getElementById("adminSection").style.display = "block";
+  }
 });
 
-document.addEventListener("keydown", e => {
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "l") {
-    e.preventDefault();
-    const pw = prompt("Ange admin-lösenord:");
-    if (pw === "lova123") {
-      const admin = document.getElementById("adminSection");
-      admin.style.display = "block";
-      admin.scrollIntoView({ behavior: "smooth" });
-      renderWeek();
-    }
-  }
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadBlockedDays();
+  renderWeek();
 });
 </script>
 
