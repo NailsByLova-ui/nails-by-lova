@@ -380,8 +380,7 @@ function renderWeek() {
       box.classList.add("selected");
     };
 
-    container.appendChild(box);
-  });
+    container.appendChild(box)
 }
 
 async function saveAdminDays() {
@@ -394,7 +393,6 @@ async function saveAdminDays() {
     } else {
       bookedDays.push(day);
     }
-  });
 
   await saveDays();
   renderWeek();
@@ -422,8 +420,7 @@ document.addEventListener("keydown", e => {
       admin.scrollIntoView({ behavior: "smooth" });
       renderWeek();
     }
-  }
-});
+  
  document.getElementById("startTid").addEventListener("change", function () {
   const selectedDay = document.getElementById("selectedDay").value;
 
@@ -491,7 +488,6 @@ document.addEventListener("keydown", e => {
     alert("Den tiden går inte att boka 🤍");
     this.value = "";
   }
-});
 </script>
 
 </body>
