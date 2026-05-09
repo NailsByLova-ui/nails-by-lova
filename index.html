@@ -228,8 +228,8 @@
       Den här dagen är redan bokad 🤍
     </p>
 
-    <input type="hidden" name="selectedDay" id="selectedDay" required>
-    <input type="hidden" name="selectedTime" id="selectedTime">
+    <input type="hidden" name="Dag" id="selectedDay" required>
+<input type="hidden" name="Vald tid" id="selectedTime">
 
     <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
 
@@ -396,7 +396,6 @@ async function saveAdminDays() {
 
 // 🔄 RESET
 async function nextWeek() {
-  bookedDays = [];
   await saveDays();
   renderWeek();
 }
@@ -440,7 +439,7 @@ document.getElementById("startTid").addEventListener("change", function () {
   let min, max;
 
   if (day === 0 || day === 6) {
-    min = 13 * 60;
+    min = 10 * 60;
     max = 19 * 60;
   } else {
     min = 16 * 60;
@@ -468,12 +467,7 @@ document.getElementById("startTid").addEventListener("change", function () {
 
   document.getElementById("slutTid").value = endTime;
 });
-  document.getElementById("startTid").addEventListener("input", function () {
-  if (this.value) {
-    document.getElementById("timeLabel").innerText =
-      "Vald tid: " + this.value + " ✨";
-  }
-});
+ 
   document.getElementById("startTid").addEventListener("input", function () {
   if (this.value) {
     document.getElementById("timeLabel").innerText = this.value;
