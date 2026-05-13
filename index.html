@@ -151,7 +151,6 @@ box-shadow:0 5px 15px rgba(0,0,0,0.2);
   </div>
 </section>
 <section class="section">
- <section class="section">
   <p class="subtitle">VIKTIG INFO</p>
   <h2>Inför ditt besök</h2>
 
@@ -252,6 +251,8 @@ box-shadow:0 5px 15px rgba(0,0,0,0.2);
     </p>
 
   <input type="hidden" name="Dag" id="selectedDay" required>
+<input type="hidden" name="Visningsdag" id="displayDay">
+<input type="hidden" name="Vald tid" id="selectedTime">
 
     <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
     <label style="margin-top:15px; display:block; color:#c89aa5;">
@@ -306,9 +307,11 @@ let bookedDays = [];
 async function loadDays() {
   try {
     const res = await fetch(API);
-    bookedDays = await res.json();
-  } catch {
-    bookedDays = [];
+   bookedDays = await res.json();
+
+if (!Array.isArray(bookedDays)) {
+  bookedDays = [];
+}
   }
 }
 
@@ -402,13 +405,17 @@ function renderWeek() {
 
       document.getElementById("bookedMessage").style.display = "none";
 
-     const formattedDate = new Date(d.key).toLocaleDateString("sv-SE", {
+    const formattedDate = new Date(d.key).toLocaleDateString("sv-SE", {
   weekday: "short",
   day: "numeric",
   month: "long"
 });
 
-document.getElementById("selectedDay").value = formattedDate;
+document.getElementById("selectedDay").value = d.key;
+
+document.getElementById("selectedDay").dataset.display = formattedDate;
+
+document.getElementById("displayDay").value = formattedDate;
 
       document.getElementById("startTid").disabled = false;
 
@@ -442,9 +449,8 @@ async function saveAdminDays() {
 }
 
 async function nextWeek() {
-  bookedDays = [];
-  await saveDays();
   renderWeek();
+}
 }
 
 // 🚀 START
@@ -477,8 +483,11 @@ document.getElementById("startTid").addEventListener("change", function () {
     return;
   }
 
-  const date = new Date(selectedDay);
-  const day = date.getDay();
+  const rawDate = document.getElementById("selectedDay").value;
+
+const date = new Date(rawDate);
+
+const day = date.getDay();
 
   const [h, m] = this.value.split(":").map(Number);
   const totalMinutes = h * 60 + m;
@@ -513,7 +522,9 @@ document.getElementById("startTid").addEventListener("change", function () {
     "Beräknad sluttid: " + endTime;
 
   document.getElementById("slutTid").value = endTime;
+  if (document.getElementById("selectedTime")) {
   document.getElementById("selectedTime").value = this.value;
+}
 });
  
   document.getElementById("startTid").addEventListener("input", function () {
