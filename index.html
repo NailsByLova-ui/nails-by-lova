@@ -421,16 +421,14 @@ const formattedDate = localDate.toLocaleDateString("sv-SE", {
 });
 
 document.getElementById("selectedDay").value = d.key;
-
 document.getElementById("selectedDay").dataset.display = formattedDate;
-
 document.getElementById("displayDay").value = formattedDate;
 
 document.getElementById("startTid").disabled = false;
 
-document.querySelectorAll(".day-box").forEach(el =>
-  el.classList.remove("selected")
-);
+document.querySelectorAll(".day-box").forEach(el => {
+  el.classList.remove("selected");
+});
 
 box.classList.add("selected");
     };
