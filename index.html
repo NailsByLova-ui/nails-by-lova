@@ -495,10 +495,11 @@ document.getElementById("startTid").addEventListener("change", function () {
     document.getElementById("timeLabel").style.color = "#c89aa5";
   }
 });
-  function openMobileAdmin() {
+function openMobileAdmin() {
   const pw = prompt("Admin-lösenord");
 
-  if (pw === "LoDa090909#_!")
+  if (pw === "LoDa090909#_!") {
+
     const admin = document.getElementById("adminSection");
 
     admin.style.display = "block";
@@ -510,8 +511,11 @@ document.getElementById("startTid").addEventListener("change", function () {
     renderWeek();
 
     alert("Adminläge aktiverat 🤍");
+
   } else {
+
     alert("Fel lösenord");
+
   }
 }
 </script>
