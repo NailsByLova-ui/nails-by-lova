@@ -405,11 +405,19 @@ function renderWeek() {
       }
 
       document.getElementById("bookedMessage").style.display = "none";
+const parts = d.key.split("-");
 
-    const formattedDate = new Date(d.key).toLocaleDateString("sv-SE", {
+const localDate = new Date(
+  parts[0],
+  parts[1] - 1,
+  parts[2]
+);
+
+const formattedDate = localDate.toLocaleDateString("sv-SE", {
   weekday: "short",
   day: "numeric",
   month: "long"
+});
 });
 
 document.getElementById("selectedDay").value = d.key;
