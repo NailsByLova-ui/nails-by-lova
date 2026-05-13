@@ -404,7 +404,8 @@ function renderWeek() {
         return;
       }
 
-      document.getElementById("bookedMessage").style.display = "none";
+document.getElementById("bookedMessage").style.display = "none";
+
 const parts = d.key.split("-");
 
 const localDate = new Date(
@@ -425,16 +426,16 @@ document.getElementById("selectedDay").dataset.display = formattedDate;
 
 document.getElementById("displayDay").value = formattedDate;
 
-      document.getElementById("startTid").disabled = false;
+document.getElementById("startTid").disabled = false;
 
-      document.querySelectorAll(".day-box").forEach(el =>
-        el.classList.remove("selected")
-      );
+document.querySelectorAll(".day-box").forEach(el =>
+  el.classList.remove("selected")
+);
 
-      box.classList.add("selected");
+box.classList.add("selected");
     };
 
-    container.appendChild(box);
+container.appendChild(box);
   });
 }
 
