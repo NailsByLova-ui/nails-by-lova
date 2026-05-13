@@ -307,12 +307,16 @@ let bookedDays = [];
 async function loadDays() {
   try {
     const res = await fetch(API);
-   bookedDays = await res.json();
+    bookedDays = await res.json();
 
-if (!Array.isArray(bookedDays)) {
-  bookedDays = [];
-}
+    if (!Array.isArray(bookedDays)) {
+      bookedDays = [];
+    }
+
+  } catch {
+    bookedDays = [];
   }
+}
 
 async function saveDays() {
   await fetch(API, {
