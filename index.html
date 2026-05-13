@@ -245,8 +245,7 @@ box-shadow:0 5px 15px rgba(0,0,0,0.2);
       Den här dagen är redan bokad 🤍
     </p>
 
-    <input type="hidden" name="Dag" id="selectedDay" required>
-<input type="hidden" name="Vald tid" id="selectedTime">
+  <input type="hidden" name="Dag" id="selectedDay" required>
 
     <textarea name="design" placeholder="Designidéer / önskemål"></textarea>
 
@@ -381,7 +380,13 @@ function renderWeek() {
 
       document.getElementById("bookedMessage").style.display = "none";
 
-      document.getElementById("selectedDay").value = d.key;
+     const formattedDate = new Date(d.key).toLocaleDateString("sv-SE", {
+  weekday: "short",
+  day: "numeric",
+  month: "long"
+});
+
+document.getElementById("selectedDay").value = formattedDate;
 
       document.getElementById("startTid").disabled = false;
 
