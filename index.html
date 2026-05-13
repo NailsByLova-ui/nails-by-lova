@@ -277,6 +277,9 @@ async function loadDays() {
 async function saveDays() {
   await fetch(API, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(bookedDays)
   });
 }
@@ -394,8 +397,8 @@ async function saveAdminDays() {
   alert("Uppdaterat 🤍");
 }
 
-// 🔄 RESET
 async function nextWeek() {
+  bookedDays = [];
   await saveDays();
   renderWeek();
 }
@@ -466,6 +469,7 @@ document.getElementById("startTid").addEventListener("change", function () {
     "Beräknad sluttid: " + endTime;
 
   document.getElementById("slutTid").value = endTime;
+  document.getElementById("selectedTime").value = this.value;
 });
  
   document.getElementById("startTid").addEventListener("input", function () {
