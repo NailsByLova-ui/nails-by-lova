@@ -121,7 +121,24 @@
     </a>
   </div>
 </section>
-
+<button 
+onclick="openMobileAdmin()" 
+style="
+position:fixed;
+bottom:20px;
+right:20px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#c89aa5;
+color:white;
+font-size:20px;
+z-index:9999;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+">
+🔒
+</button>
 <section class="section admin-hidden" id="adminSection">
   <div class="info-card">
     <h2>Admin – bokade datum</h2>
@@ -478,6 +495,25 @@ document.getElementById("startTid").addEventListener("change", function () {
     document.getElementById("timeLabel").style.color = "#c89aa5";
   }
 });
+  function openMobileAdmin() {
+  const pw = prompt("Admin-lösenord");
+
+  if (pw === "lova123") {
+    const admin = document.getElementById("adminSection");
+
+    admin.style.display = "block";
+
+    admin.scrollIntoView({
+      behavior: "smooth"
+    });
+
+    renderWeek();
+
+    alert("Adminläge aktiverat 🤍");
+  } else {
+    alert("Fel lösenord");
+  }
+}
 </script>
 
 </body>
