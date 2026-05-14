@@ -358,7 +358,12 @@ function getMonthData() {
     if (day === 6) label = "Lördag";
     if (day === 0) label = "Söndag";
 
-    const formatted = date.toISOString().split("T")[0];
+   const formatted =
+  year +
+  "-" +
+  String(month + 1).padStart(2, "0") +
+  "-" +
+  String(i).padStart(2, "0");
 
     days.push({
       key: formatted,
