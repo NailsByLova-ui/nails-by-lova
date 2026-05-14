@@ -220,7 +220,7 @@ box-shadow:0 5px 15px rgba(0,0,0,0.2);
   method="POST" 
   data-netlify="true"
   enctype="multipart/form-data"
-  onsubmit="return showPopup(event)"
+onsubmit="showPopup(); return false;"
 >
     <input type="hidden" name="form-name" value="bokning">
 
@@ -287,13 +287,14 @@ box-shadow:0 5px 15px rgba(0,0,0,0.2);
 </div>
 
 <script>
-function showPopup(e) {
-  e.preventDefault();
+function showPopup() {
   document.getElementById("popup").style.display = "flex";
 
   setTimeout(() => {
-    e.target.submit();
-  }, 1000);
+    document.forms["bokning"].submit();
+  }, 500);
+
+  return false;
 }
 
 function closePopup() {
